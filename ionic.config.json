@@ -1,0 +1,7 @@
+{
+  "name": "CampusGo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
