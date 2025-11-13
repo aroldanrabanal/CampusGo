@@ -1,9 +1,9 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.campusgo.app',
   appName: 'CampusGo',
-  webDir: 'www'
+  webDir: './dist/campusgo',
 };
 
 export default config;

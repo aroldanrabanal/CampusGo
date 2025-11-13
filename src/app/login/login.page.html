@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar class="gradient-toolbar">
+    <ion-title><ion-img src="../assets/img/logo.png" class="img_logo" alt="Imagen Logo"></ion-img>Inicio de sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-input label="Email" type="email" label-placement="floating" fill="outline" placeholder="Introduce tu email"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-input label="Contraseña" type="password" label-placement="floating" fill="outline" placeholder="Introduce tu contraseña"><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-radio-group [allowEmptySelection]="true" value="r">
+            <ion-radio value="r">
+              <ion-label>Recordarme</ion-label>
+            </ion-radio>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-note>
+            Se mantendra la sesión iniciada hasta que se cierre manualmente en el dispositivo.
+          </ion-note>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" shape="round" [routerLink]="'/home'">Iniciar Sesión</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+
+</ion-footer>

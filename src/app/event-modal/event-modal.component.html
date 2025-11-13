@@ -1,0 +1,31 @@
+<!-- src/app/event-modal/event-modal.component.html -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Detalles del Evento</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-img [src]="evento.imagen" class="modal-img"></ion-img>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ evento.titulo }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+      <p><strong>Hora:</strong> {{ evento.hora }}</p>
+      <p><strong>Lugar:</strong> {{ evento.lugar }}</p>
+      <p><strong>Descripción:</strong><br>{{ evento.descripcion }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" (click)="cerrar()">
+    Cerrar
+  </ion-button>
+</ion-content>

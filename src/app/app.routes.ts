@@ -11,4 +11,21 @@ export const routes: Routes = [
     path: 'Inicio',
     component: InicioComponent
   },
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then( m => m.HomePage)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'reg',
+    loadComponent: () => import('./reg/reg.page').then( m => m.RegPage)
+  },
+  {
+    path: 'calendar',
+    loadComponent: () => import('./calendar/calendar.page').then( m => m.CalendarPage)
+  },
+
 ];

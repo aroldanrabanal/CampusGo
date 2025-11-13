@@ -1,0 +1,26 @@
+.gradient-toolbar {
+  --background: linear-gradient(to bottom, #0095FF, #CDE8FF);
+  --color: #fff;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+}
+.profile-btn {
+  --padding-start: 8px;
+  --padding-end: 8px;
+
+  ion-icon {
+    font-size: 36px;
+    margin-bottom: -4px;
+  }
+
+  ion-label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+.img_logo {
+  width: 50px;
+  height: auto;
+}

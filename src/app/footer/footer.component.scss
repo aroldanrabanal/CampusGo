@@ -1,0 +1,11 @@
+.gradient-toolbar {
+	--background: linear-gradient(to bottom, #0095FF, #CDE8FF) !important;
+	--color: #fff !important;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}

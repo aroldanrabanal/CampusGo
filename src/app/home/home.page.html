@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <div class="event-card">
+    <h1 class="event-title">Musical 1</h1>
+
+    <div class="img-container">
+      <ion-img src="../assets/img/evento1.jpg" class="img-evento"></ion-img>
+
+      <ion-button fill="clear" class="nav-arrow left-arrow">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" class="nav-arrow right-arrow">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+
+      <div class="action-buttons">
+        <ion-button class="btn-dislike" shape="round" (click)="dislike()">
+          <ion-icon name="thumbs-down-outline" ></ion-icon>
+        </ion-button>
+        <ion-button class="btn-like" shape="round" (click)="like()">
+          <ion-icon name="heart-outline" ></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <div class="bottom-actions">
+      <ion-icon name="share-social-outline" class="send-icon"></ion-icon>
+      <ion-button expand="block" class="btn-ver-mas" (click)="abrirModal()">
+        <ion-icon name="eye-outline" slot="start"></ion-icon>
+        Ver más
+      </ion-button>
+      <ion-icon name="paper-plane-outline" class="send-icon" (click)="sendEmail()" />
+    </div>
+  </div>
+</ion-content>
+
+<app-footer></app-footer>
