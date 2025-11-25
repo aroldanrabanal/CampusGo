@@ -15,22 +15,28 @@
   </div>
 
   <div id="eventos" class="eventos-container">
-    <ion-list lines="none">
+    <ion-list lines="none" style="background: transparent;">
 
-      <ion-item *ngFor="let evento of eventos" class="evento-item" [hidden]="esEventoPasado(evento)">
+      <ion-card
+        *ngFor="let evento of eventos"
+        class="evento-card"
+        [class]="'estado-' + evento.estado"
+        [hidden]="esEventoPasado(evento)">
 
-        <ion-icon name="calendar-outline" slot="start" color="medium"></ion-icon>
-        <ion-label>
-          <h2>{{ evento.titulo }}</h2>
-          <p>{{ evento.fecha | date:'dd/MM/yyyy' }} • {{ evento.hora }}</p>
-          <p class="estado" [ngClass]="evento.estado">
-            <ion-badge [color]="getColorEstado(evento.estado)">{{ evento.estado }}</ion-badge>
-          </p>
-        </ion-label>
-        <ion-button slot="end" fill="clear" color="danger" (click)="eliminarEvento(evento)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+        <ion-item lines="none" class="evento-content">
+          <ion-icon name="calendar-outline" slot="start" color="medium"></ion-icon>
+          <ion-label>
+            <h2>{{ evento.titulo }}</h2>
+            <p>{{ evento.fecha | date:'dd/MM/yyyy' }} • {{ evento.hora }}</p>
+            <p class="estado">
+              <ion-badge [color]="getColorEstado(evento.estado)">{{ evento.estado }}</ion-badge>
+            </p>
+          </ion-label>
+          <ion-button slot="end" fill="clear" color="danger" (click)="eliminarEvento(evento)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-card>
 
       <ion-item *ngIf="eventos.length === 0" class="sin-eventos">
         <ion-label class="ion-text-center">
@@ -48,7 +54,7 @@
   <ion-modal #modal trigger="open-modal">
     <ng-template>
       <ion-content>
-        <ion-toolbar>
+        <ion-toolbar class="gradient-toolbar">
           <ion-title>Crear evento</ion-title>
           <ion-buttons slot="end">
             <ion-button color="light" (click)="modal.dismiss()">Cerrar</ion-button>
@@ -116,7 +122,19 @@
       </ion-content>
     </ng-template>
   </ion-modal>
-
+  <ion-toast
+    #toastError
+    message="El título del evento es obligatorio"
+    color="danger"
+    duration="3000"
+    position="top"
+    [buttons]="[
+    {
+      text: 'OK',
+      role: 'cancel'
+    }
+  ]">
+  </ion-toast>
 
 </ion-content>
 

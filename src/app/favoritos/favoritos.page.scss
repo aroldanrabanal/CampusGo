@@ -1,0 +1,109 @@
+
+ion-content {
+  --background: #f8f9fc;
+  --color: #1a1a1a;
+}
+
+.evento-card {
+  margin: 16px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent; // Borde base (invisible)
+  position: relative;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .header-item {
+    --background: transparent;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 16px;
+    --padding-bottom: 12px;
+
+    .titulo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .fecha {
+      font-size: 14px;
+      font-weight: 500;
+      color: #666;
+    }
+  }
+
+  .evento-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+
+  .accion-item {
+    --background: transparent;
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 12px;
+    --padding-bottom: 20px;
+    justify-content: flex-end;
+
+    .boton-estado {
+      --border-radius: 30px;
+      --padding-start: 20px;
+      --padding-end: 20px;
+      height: 40px;
+      font-weight: 600;
+      text-transform: none;
+      font-size: 15px;
+
+      ion-icon {
+        font-size: 18px;
+        margin-right: 6px;
+      }
+    }
+  }
+}
+
+.evento-card {
+  &.estado-inscribirse {
+    border-color: #007bff;
+    .titulo { color: #007bff; }
+  }
+
+  &.estado-inscrito {
+    border-color: #28a745;
+    .titulo { color: #28a745; }
+  }
+
+  &.estado-cancelado {
+    border-color: #dc3545;
+    .titulo { color: #dc3545; }
+  }
+
+  &.estado-acudido {
+    border-color: #6c757d;
+    .titulo { color: #6c757d; }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 80px;
+  color: #888;
+
+  ion-icon {
+    font-size: 80px;
+    margin-bottom: 16px;
+    color: #ddd;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

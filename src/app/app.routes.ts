@@ -27,5 +27,13 @@ export const routes: Routes = [
     path: 'calendar',
     loadComponent: () => import('./calendar/calendar.page').then( m => m.CalendarPage)
   },
+  {
+    path: 'favoritos',
+    loadComponent: () => import('./favoritos/favoritos.page').then( m => m.FavoritosPage)
+  },
+  {
+    path: 'pasarela-pago',
+    loadComponent: () => import('./pasarela-pago/pasarela-pago.page').then( m => m.PasarelaPagoPage)
+  },
 
 ];

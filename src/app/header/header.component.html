@@ -2,6 +2,7 @@
   <ion-toolbar class="gradient-toolbar">
     <ion-grid>
       <ion-row class="ion-align-items-center">
+        <!-- Logo -->
         <ion-col size="6" class="ion-text-left">
           <ion-img
             src="../assets/img/logo.png"
@@ -11,11 +12,18 @@
           </ion-img>
         </ion-col>
 
-        <ion-col size="6" class="ion-text-right">
+        <ion-col size="6" class="ion-text-right ion-align-self-center">
+
           <ion-button fill="clear" class="profile-btn">
             <ion-icon name="person-circle" size="large"></ion-icon>
             <ion-label position="stacked">Nombre</ion-label>
           </ion-button>
+
+          <ion-button fill="clear" class="notification-btn">
+            <ion-icon name="notifications-sharp"></ion-icon>
+            <ion-badge color="danger" class="notification-badge">3</ion-badge>
+          </ion-button>
+
         </ion-col>
       </ion-row>
     </ion-grid>

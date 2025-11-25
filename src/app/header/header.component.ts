@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {RouterLink} from "@angular/router";
 import { addIcons } from 'ionicons';
-import {personCircle} from 'ionicons/icons';
+import {personCircle, notificationsSharp} from 'ionicons/icons';
 
 @Component({
     selector: 'app-header',
@@ -16,7 +16,7 @@ import {personCircle} from 'ionicons/icons';
 export class HeaderComponent  implements OnInit {
 
   constructor() {
-    addIcons({ personCircle });
+    addIcons({ personCircle, notificationsSharp });
   }
 
   ngOnInit() {}

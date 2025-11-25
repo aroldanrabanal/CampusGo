@@ -1,0 +1,30 @@
+<app-header></app-header>
+<ion-content class="ion-padding">
+  <ion-card
+    *ngFor="let evento of eventos"
+    class="evento-card"
+    [class]="'estado-' + evento.estado">
+
+    <ion-item lines="none" class="header-item">
+      <ion-label class="titulo">{{ evento.titulo }}</ion-label>
+      <ion-note slot="end" class="fecha">{{ evento.fecha }}</ion-note>
+    </ion-item>
+
+    <img [src]="evento.imagen" [alt]="evento.titulo" class="evento-img" />
+
+    <ion-item lines="none" class="accion-item">
+      <ion-button
+        fill="solid"
+        size="small"
+        [color]="getEstadoConfig(evento.estado).color"
+        [disabled]="evento.estado === 'acudido' || evento.estado === 'cancelado'"
+        class="boton-estado"
+        (click)="getEstadoConfig(evento.estado).accion?.(evento)">
+        <ion-icon [name]="getEstadoConfig(evento.estado).icono" slot="start"></ion-icon>
+        {{ getEstadoConfig(evento.estado).texto }}
+      </ion-button>
+    </ion-item>
+  </ion-card>
+</ion-content>
+
+<app-footer></app-footer>

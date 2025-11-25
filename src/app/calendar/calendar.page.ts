@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import {
   IonContent, IonFab, IonFabButton, IonDatetime, IonList, IonItem, IonLabel,
@@ -14,6 +14,8 @@ import {
 import { FooterComponent } from "../footer/footer.component";
 import { HeaderComponent } from "../header/header.component";
 import {FormsModule} from "@angular/forms";
+import Swal from 'sweetalert2';
+import { IonToast } from '@ionic/angular/standalone';
 
 interface Evento {
   fecha: string;
@@ -33,11 +35,40 @@ interface Evento {
     DatePipe,
     IonContent, IonFab, IonFabButton, IonDatetime,
     IonList, IonItem, IonLabel, IonBadge, IonIcon, IonButton,
-    FooterComponent, HeaderComponent, IonAvatar, IonImg, IonModal, IonToolbar, IonTitle, IonButtons, IonInput, IonCard, IonCardContent, IonCol, IonInputPasswordToggle, IonNote, IonRadio, IonRadioGroup, IonRow, IonDatetimeButton, IonTextarea, FormsModule
+    FooterComponent, HeaderComponent, IonAvatar, IonImg, IonModal, IonToolbar, IonTitle, IonButtons, IonInput, IonCard, IonCardContent, IonCol, IonInputPasswordToggle, IonNote, IonRadio, IonRadioGroup, IonRow, IonDatetimeButton, IonTextarea, FormsModule,
+    IonToast
   ]
 })
-export class CalendarPage implements OnInit {
 
+export class CalendarPage implements OnInit {
+  @ViewChild('toastError') toastError!: IonToast;
+  eliminarEvento(evento: Evento) {
+    Swal.fire({
+      title: '¿Eliminar evento?',
+      text: `"${evento.titulo}" será eliminado`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#e53e3e',
+      cancelButtonColor: '#718096',
+      reverseButtons: true,
+      heightAuto: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.eventos = this.eventos.filter(e => e !== evento);
+
+        Swal.fire({
+          title: 'Eliminado',
+          text: 'El evento ha sido eliminado',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false,
+          heightAuto: false
+        });
+      }
+    });
+  }
   fechaSeleccionada = '';
   eventos: Evento[] = [
     { fecha: '2025-06-10', titulo: 'Examen Matemáticas', hora: '09:00',  estado: 'Pendiente' },
@@ -71,12 +102,14 @@ export class CalendarPage implements OnInit {
 
   highlightedDates = (isoString: string) => {
     const fecha = isoString.split('T')[0];
-    const tiene = this.eventos.some(e => e.fecha === fecha);
-    if (tiene) {
+    const tieneEvento = this.eventos.some(e =>
+      e.fecha === fecha && e.estado !== 'Eliminado'
+    );
+
+    if (tieneEvento) {
       return {
-        textColor: 'white',
-        backgroundColor: '#3498db',
-        borderRadius: '50%'
+        textColor: '#3182ce',
+        backgroundColor: 'transparent'
       };
     }
     return undefined;
@@ -88,7 +121,7 @@ export class CalendarPage implements OnInit {
 
   agregarEvento() {
     if (!this.evento.titulo?.trim()) {
-      alert('El título es obligatorio');
+      this.toastError.present();
       return;
     }
 
@@ -114,9 +147,6 @@ export class CalendarPage implements OnInit {
 
   }
 
-  eliminarEvento(evento: Evento) {
-    this.eventos = this.eventos.filter(e => e !== evento);
-  }
 
   getColorEstado(estado: string) {
     switch(estado) {
@@ -137,6 +167,7 @@ export class CalendarPage implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
+
         this.evento.imagen = reader.result as string;
       };
       reader.readAsDataURL(file);
