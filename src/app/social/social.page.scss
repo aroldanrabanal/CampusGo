@@ -1,0 +1,42 @@
+.post-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-post {
+  width: 100%;
+  height: auto;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+}
+
+.btn-like {
+  color: #e0245e;
+}
+
+.btn-comment {
+  color: #1da1f2;
+}
+
+.comments-section {
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+.comment-input {
+  margin-bottom: 8px;
+}
+
+.btn-enviar {
+  --background: #3880ff;
+}

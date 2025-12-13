@@ -34,6 +34,10 @@ export const routes: Routes = [
   {
     path: 'pasarela-pago',
     loadComponent: () => import('./pasarela-pago/pasarela-pago.page').then( m => m.PasarelaPagoPage)
+  },  {
+    path: 'social',
+    loadComponent: () => import('./social/social.page').then( m => m.SocialPage)
   },
+
 
 ];
