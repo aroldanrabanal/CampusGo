@@ -22,9 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.page.html',
-  styleUrls: ['./calendar.page.scss'],
+  selector: 'app-calendar2',
+  templateUrl: 'calendario2.component.html',
+  styleUrls: ['calendario2.component.scss'],
   standalone: true,
   imports: [
     HttpClientModule,
@@ -32,12 +32,12 @@ import { HttpClientModule } from '@angular/common/http';
     DatePipe,
     IonContent, IonFab, IonFabButton, IonDatetime,
     IonList, IonItem, IonLabel, IonBadge, IonIcon, IonButton,
-    FooterComponent, HeaderComponent, IonAvatar, IonImg, IonModal, IonToolbar, IonTitle, IonButtons, IonInput, IonCard, IonCardContent, IonCol, IonInputPasswordToggle, IonNote, IonRadio, IonRadioGroup, IonRow, IonDatetimeButton, IonTextarea, FormsModule,
+    IonAvatar, IonImg, IonModal, IonToolbar, IonTitle, IonButtons, IonInput, IonCard, IonCardContent, IonCol, IonInputPasswordToggle, IonNote, IonRadio, IonRadioGroup, IonRow, IonDatetimeButton, IonTextarea, FormsModule,
     IonToast
   ]
 })
 
-export class CalendarPage implements OnInit {
+export class Calendario2Component implements OnInit {
   eventos: Eventos[] = [];
 
 
@@ -59,6 +59,7 @@ export class CalendarPage implements OnInit {
     this.fechaSeleccionada = new Date().toISOString();
     this.evento.obtenerEventos().subscribe({
       next: (data: Eventos[]) => (this.eventos = data),
+      error: (err) => console.log(err)
     })
   }
 

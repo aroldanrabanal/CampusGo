@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {InicioComponent} from "./inicio/inicio.component";
-
+import { Calendario2Component } from "./calendario2/calendario2.component";
 export const routes: Routes = [
   {
     path: '',
@@ -34,10 +34,12 @@ export const routes: Routes = [
   {
     path: 'pasarela-pago',
     loadComponent: () => import('./pasarela-pago/pasarela-pago.page').then( m => m.PasarelaPagoPage)
-  },  {
+  },
+  {
     path: 'social',
     loadComponent: () => import('./social/social.page').then( m => m.SocialPage)
   },
+  {path: 'calendario2', component: Calendario2Component}
 
 
 ];

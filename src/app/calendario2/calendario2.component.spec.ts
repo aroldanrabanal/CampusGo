@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
+import { Calendario2Component } from './calendario2.component';
+
+describe('Calendario2Component', () => {
+  let component: Calendario2Component;
+  let fixture: ComponentFixture<Calendario2Component>;
+
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [Calendario2Component],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Calendario2Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
