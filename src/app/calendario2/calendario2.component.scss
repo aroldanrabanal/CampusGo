@@ -1,3 +1,7 @@
+.ion-padding, ion-content {
+  --background: #EAF6FF;
+}
+
 .evento-card {
   margin: 12px 0;
   border-radius: 20px;
@@ -60,37 +64,70 @@
   }
 }
 
+/* Imagen de portada dentro de la card de evento */
+.evento-imagen {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #f6f7f9;
+}
+
 .evento-card {
-  &.estado-Pendiente {
-    border-color: #fbbf24;
-    h2 { color: #d97706; }
-    .estado ion-badge {
-      --background: #fffbeb;
-      --color: #d97706;
-    }
-  }
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background-clip: padding-box;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
 
-  &.estado-En\\ curso {
-    border-color: #68d391;
-    h2 { color: #2f855a; }
-    .estado ion-badge {
-      --background: #ecfdf5;
-      --color: #2f855a;
-    }
-  }
+.evento-card.estado-tecnologia {
+  border: 3px solid var(--ion-color-warning);
+}
 
-  &.estado-Eliminado {
-    border-color: #feb2b2;
-    opacity: 0.7;
-    h2 {
-      color: #c53030;
-      text-decoration: line-through;
-    }
-    .estado ion-badge {
-      --background: #fff5f5;
-      --color: #c53030;
-    }
-  }
+.evento-card.estado-ciencia {
+  border: 3px solid var(--ion-color-success);
+}
+
+.evento-card.estado-deporte {
+  border: 3px solid var(--ion-color-danger);
+}
+
+.evento-card.estado-literatura {
+  border: 3px solid var(--ion-color-primary);
+}
+
+.evento-card.estado-salud {
+  border: 3px solid var(--ion-color-success);
+}
+
+.evento-card.estado-arte {
+  border: 3px solid var(--ion-color-tertiary);
+}
+
+.evento-card.estado-musica {
+  border: 3px solid var(--ion-color-secondary);
+}
+
+.evento-card.estado-default {
+  border: 3px solid var(--ion-color-medium);
+}
+
+.evento-card ion-item.evento-content {
+  --inner-padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+.evento-card ion-badge {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.evento-card:hover {
+  /* Ligero incremento de la sombra al hacer hover */
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.10), 0 3px 6px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
 }
 
 .sin-eventos {
@@ -157,4 +194,66 @@
   height: 60px;
   display: flex;
   justify-content: center;
+}
+
+.eventos-container {
+  padding: 8px 8px 80px;
+}
+
+.evento-card {
+  ion-card-header {
+    padding-bottom: 4px;
+  }
+
+  ion-card-title {
+    color: #2d3748;
+    font-weight: 700;
+  }
+
+  ion-card-subtitle {
+    color: #718096;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  ion-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .precio {
+    color: #2d3748;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.form-actions {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

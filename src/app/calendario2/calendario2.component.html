@@ -1,56 +1,170 @@
-
+<app-header></app-header>
 
 <ion-content class="ion-padding">
-
-  <div id="calendar" class="calendar-container">
-    <ion-datetime
-      presentation="date"
-      locale="es-ES"
-      [firstDayOfWeek]="1"
-      size="cover"
-      [value]="fechaSeleccionada"
-      (ionChange)="onFechaChange($event)"
-    ></ion-datetime>
-  </div>
-
   <div id="eventos" class="eventos-container">
-    <ion-list lines="none" style="background: transparent;">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="4" *ngFor="let evento of eventos">
+          <ion-card class="evento-card" [ngClass]="getCardClass(evento.categoria)">
+            <ion-img *ngIf="evento.imagenUrl" [src]="evento.imagenUrl" alt="{{ evento.nombre }}" class="evento-imagen"></ion-img>
 
-      <ion-card
-        *ngFor="let evento of eventos"
-        class="evento-card"
-        [class]="'estado-'"
-      >
+            <ion-card-header>
+              <ion-card-title>{{ evento.nombre }}</ion-card-title>
+              <ion-card-subtitle>
+                <ion-icon name="calendar-outline"></ion-icon>
+                {{ evento.fecha | date:'dd/MM/yyyy' }} · {{ evento.lugar || 'No especificado' }}
+              </ion-card-subtitle>
+            </ion-card-header>
 
-        <ion-item lines="none" class="evento-content">
-          <ion-icon name="calendar-outline" slot="start" color="medium"></ion-icon>
-          <ion-label>
-            <h2>{{ evento.nombre }}</h2>
-            <p>{{ evento.fecha | date:'dd/MM/yyyy' }}</p>
-            <p class="estado">
-              <ion-badge [color]=""></ion-badge>
-            </p>
-          </ion-label>
-          <ion-button slot="end" fill="clear" color="danger">
-            <ion-icon name="trash-outline"></ion-icon>
-          </ion-button>
-        </ion-item>
-      </ion-card>
+            <ion-card-content>
+              <div class="card-meta">
+                <ion-badge [color]="getBadgeColor(evento.categoria)">{{evento.categoria}}</ion-badge>
+                <div class="precio"><ion-icon name="pricetag-outline"></ion-icon> {{ evento.precio }} €</div>
+              </div>
+              <div class="card-actions">
+                <ion-button fill="clear" color="primary" (click)="editEvento(evento)">
+                  <ion-icon slot="start" name="pencil-outline"></ion-icon>
+                  Editar
+                </ion-button>
+                <ion-button fill="clear" color="danger" (click)="deleteEvento(evento.id)">
+                  <ion-icon slot="start" name="trash-outline"></ion-icon>
+                  Eliminar
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 
-      <ion-item *ngIf="eventos.length === 0" class="sin-eventos">
-        <ion-label class="ion-text-center">
+      <ion-row *ngIf="eventos.length === 0">
+        <ion-col size="12" class="sin-eventos">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
           <p>No hay eventos aún. ¡Crea el primero!</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+          <ion-button color="primary" (click)="openCreateModal()">
+            <ion-icon slot="start" name="add-outline"></ion-icon>
+            Crear evento
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="primary" id="open-modal" expand="block">
+    <ion-fab-button color="primary" expand="block" (click)="openCreateModal()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
+  <ion-modal [isOpen]="isEditModalOpen" cssClass="cal2-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Editar Evento</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="isEditModalOpen = false">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="editingEvento.nombre"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Fecha</ion-label>
+          <ion-datetime [(ngModel)]="editingEvento.fecha"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Precio</ion-label>
+          <ion-input type="number" step="0.01" [(ngModel)]="editingEvento.precio"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Lugar</ion-label>
+          <ion-input [(ngModel)]="editingEvento.lugar"></ion-input>
+        </ion-item>
+        <div class="form-actions">
+          <ion-button expand="block" (click)="guardarEdicion()" [disabled]="isSaving">
+            {{ isSaving ? 'Guardando...' : 'Guardar' }}
+          </ion-button>
+          <ion-button expand="block" fill="clear" (click)="isEditModalOpen = false">Cancelar</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="isCreateModalOpen" cssClass="cal2-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Crear evento</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeCreateModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form (ngSubmit)="saveNuevoEvento();" #form="ngForm" class="form-grid">
+          <ion-item>
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input [(ngModel)]="nuevoEvento.nombre" name="nombre"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Descripción</ion-label>
+            <ion-textarea [(ngModel)]="nuevoEvento.descripcion" name="descripcion"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Fecha y hora</ion-label>
+            <ion-datetime required display-format="DD/MM/YYYY HH:mm" picker-format="YYYY-MM-DDTHH:mm" [(ngModel)]="nuevoEventoFechaString" name="fecha"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Precio</ion-label>
+            <ion-input type="number" step="0.01" [(ngModel)]="nuevoEvento.precio" name="precio"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Lugar</ion-label>
+            <ion-input [(ngModel)]="nuevoEvento.lugar" name="lugar"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Categoría</ion-label>
+            <ion-select [(ngModel)]="nuevoEvento.categoria" name="categoria" interface="popover">
+              <ion-select-option value="CIENCIA">CIENCIA</ion-select-option>
+              <ion-select-option value="TECNOLOGIA">TECNOLOGIA</ion-select-option>
+              <ion-select-option value="DEPORTE">DEPORTE</ion-select-option>
+              <ion-select-option value="LITERATURA">LITERATURA</ion-select-option>
+              <ion-select-option value="SALUD">SALUD</ion-select-option>
+              <ion-select-option value="ARTE">ARTE</ion-select-option>
+              <ion-select-option value="MUSICA">MUSICA</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Imagen (opcional)</ion-label>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Descripción de imagen (opcional)</ion-label>
+            <ion-textarea [(ngModel)]="imagenDescripcion" name="descripcion"></ion-textarea>
+          </ion-item>
+
+          <div class="form-actions">
+            <ion-button type="submit" expand="block" [disabled]="isSaving || !form.form.valid">
+              {{ isSaving ? 'Guardando...' : 'Guardar' }}
+            </ion-button>
+            <ion-button expand="block" fill="clear" (click)="closeCreateModal()">Cancelar</ion-button>
+          </div>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+
 
 </ion-content>
 
+<app-footer></app-footer>

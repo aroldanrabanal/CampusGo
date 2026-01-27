@@ -35,3 +35,150 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+@import 'sweetalert2/src/sweetalert2.scss';
+
+.swal2-container {
+  z-index: 9999 !important;
+}
+
+/* Estilos claros solo para los modales de calendario2 */
+.cal2-modal::part(content) {
+  /* Fondo del contenido del modal */
+  --background: #F2F8FF; /* azul muy claro acorde con #EAF6FF */
+  /* Asegurar contraste del texto en tema claro dentro del modal */
+  --ion-text-color: #1f2937;
+  color: var(--ion-text-color); /* texto principal oscuro y legible */
+}
+
+.cal2-modal::part(backdrop) {
+  background: rgba(15, 23, 42, 0.32);
+  backdrop-filter: saturate(120%) blur(2px);
+}
+
+.cal2-modal ion-header ion-title,
+.cal2-modal ion-toolbar,
+.cal2-modal ion-title {
+  color: #0f172a;
+}
+
+/* Header/Toolbar del modal: fondo claro, separación y legibilidad */
+.cal2-modal ion-header {
+  --background: transparent; /* lo define el toolbar */
+}
+
+.cal2-modal ion-toolbar {
+  --background: #ffffff;
+  --color: #0f172a;
+  /* Separación visual respecto al contenido */
+  box-shadow: 0 1px 0 rgba(2, 132, 199, 0.15), 0 2px 6px rgba(2, 132, 199, 0.06);
+  border-bottom: 1px solid rgba(2, 132, 199, 0.15);
+}
+
+.cal2-modal ion-title {
+  font-weight: 700;
+}
+
+.cal2-modal ion-buttons ion-button {
+  --color: #0f172a; /* botones del header legibles en fondo claro */
+}
+
+.cal2-modal ion-content {
+  --background: transparent; /* ya lo define el part(content) */
+}
+
+.cal2-modal ion-item {
+  --background: #ffffff;
+  --min-height: 48px;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  --highlight-color-focused: var(--ion-color-primary);
+  --highlight-color-valid: var(--ion-color-primary);
+  --highlight-color-invalid: var(--ion-color-danger);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(2, 132, 199, 0.06);
+  margin: 6px 0;
+}
+
+.cal2-modal ion-label { color: #0f172a; }
+
+/* Texto y placeholder de campos */
+/* Colores de texto de los campos (Ionic 6/7) */
+.cal2-modal ion-input,
+.cal2-modal ion-textarea,
+.cal2-modal ion-select,
+.cal2-modal ion-datetime {
+  /* Variables estándar de los componentes */
+  --color: #1f2937; /* texto de input */
+}
+
+.cal2-modal ion-input::part(native),
+.cal2-modal ion-textarea::part(native),
+.cal2-modal ion-select::part(text),
+.cal2-modal ion-datetime::part(native) {
+  color: #1f2937; /* refuerzo para navegadores/partes nativas */
+}
+
+/* Placeholders visibles */
+.cal2-modal ion-input,
+.cal2-modal ion-textarea,
+.cal2-modal ion-select,
+.cal2-modal ion-datetime {
+  --placeholder-color: #94a3b8;
+  --placeholder-opacity: 1;
+}
+
+.cal2-modal ion-input::part(native)::placeholder,
+.cal2-modal ion-textarea::part(native)::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+.cal2-modal ion-select::part(placeholder),
+.cal2-modal ion-datetime::part(placeholder) {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+.cal2-modal .form-actions ion-button {
+  --border-radius: 12px;
+}
+
+/* Mejora del Date Picker (ion-datetime) dentro del modal */
+.cal2-modal ion-datetime {
+  --background: #ffffff; /* cuerpo del componente */
+  --color: #0f172a;      /* texto general */
+  --title-color: #0f172a;
+  /* Ruedas (presentación tipo wheel) */
+  --wheel-highlight-background: #EAF6FF;
+  --wheel-fade-background-rgb: 234, 246, 255;
+  --wheel-highlight-border-radius: 10px;
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(2, 132, 199, 0.05);
+}
+
+/* Calendario (presentación tipo calendar) */
+.cal2-modal ion-datetime::part(title) {
+  color: #0f172a;
+}
+
+.cal2-modal ion-datetime::part(calendar-day) {
+  color: #0f172a;
+}
+
+.cal2-modal ion-datetime::part(calendar-day-active) {
+  background: var(--ion-color-primary);
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+.cal2-modal ion-datetime::part(calendar-day-today) {
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 8px;
+}
+
+.cal2-modal ion-datetime::part(wheel-item-active) {
+  color: var(--ion-color-primary);
+  font-weight: 600;
+}
