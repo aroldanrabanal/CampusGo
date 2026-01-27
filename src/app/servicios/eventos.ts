@@ -7,7 +7,7 @@ import { Eventos } from '../modelos/Eventos';
   providedIn: 'root'
 })
 export class EventoService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'https://appcampusgo.onrender.com';
 
   constructor(private http: HttpClient) {}
 
