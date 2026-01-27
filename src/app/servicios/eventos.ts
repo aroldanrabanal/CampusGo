@@ -8,8 +8,8 @@ import { Eventos } from '../modelos/Eventos';
 })
 export class EventoService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/eventos';
-  private apiBase = 'http://localhost:8080';
+  private apiUrl = 'https://appcampusgo.onrender.com/eventos';
+  private apiBase = 'https://appcampusgo.onrender.com';
 
   private pad(n: number) { return n.toString().padStart(2, '0'); }
   private formatLocalDateTime(d: Date): string {
