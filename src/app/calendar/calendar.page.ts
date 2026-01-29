@@ -18,7 +18,6 @@ import Swal from 'sweetalert2';
 import { IonToast } from '@ionic/angular/standalone';
 import {Eventos} from "../modelos/Eventos";
 import {EventoService} from "../servicios/eventos";
-import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
@@ -27,7 +26,6 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./calendar.page.scss'],
   standalone: true,
   imports: [
-    HttpClientModule,
     CommonModule,
     DatePipe,
     IonContent, IonFab, IonFabButton, IonDatetime,

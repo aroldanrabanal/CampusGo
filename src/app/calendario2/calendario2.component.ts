@@ -19,7 +19,6 @@ import { IonToast } from '@ionic/angular/standalone';
 import { ToastController } from '@ionic/angular/standalone';
 import {Eventos} from "../modelos/Eventos";
 import {EventoService} from "../servicios/eventos";
-import { HttpClientModule } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 
 
@@ -29,7 +28,6 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['calendario2.component.scss'],
   standalone: true,
   imports: [
-    HttpClientModule,
     CommonModule,
     DatePipe,
     IonContent, IonFab, IonFabButton, IonDatetime,
