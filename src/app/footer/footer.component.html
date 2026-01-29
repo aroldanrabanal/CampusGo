@@ -1,24 +1,22 @@
 <ion-footer style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
 	<ion-toolbar>
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button [routerLink]="'/home'">
-          <ion-icon name="accessibility"></ion-icon>
-          Descubrir
-        </ion-tab-button>
-        <ion-tab-button [routerLink]="'/calendario2'">
-          <ion-icon name="calendar"></ion-icon>
-          Calendario
-        </ion-tab-button>
-        <ion-tab-button [routerLink]="['/favoritos']">
-          <ion-icon name="bookmark"></ion-icon>
-          Guardados
-        </ion-tab-button>
-        <ion-tab-button [routerLink]="['/social']">
-          <ion-icon name="images"></ion-icon>
-          Anteriores
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
+    <div style="display: flex; justify-content: space-around; align-items: center; padding: 8px 0;">
+      <a ion-router-link [routerLink]="'/home'" style="text-align:center; text-decoration:none; color: inherit;">
+        <ion-icon name="accessibility"></ion-icon>
+        <div>Descubrir</div>
+      </a>
+      <a ion-router-link [routerLink]="'/calendario2'" style="text-align:center; text-decoration:none; color: inherit;">
+        <ion-icon name="calendar"></ion-icon>
+        <div>Calendario</div>
+      </a>
+      <a ion-router-link [routerLink]="'/favoritos'" style="text-align:center; text-decoration:none; color: inherit;">
+        <ion-icon name="bookmark"></ion-icon>
+        <div>Guardados</div>
+      </a>
+      <a ion-router-link [routerLink]="'/social'" style="text-align:center; text-decoration:none; color: inherit;">
+        <ion-icon name="images"></ion-icon>
+        <div>Anteriores</div>
+      </a>
+    </div>
 	</ion-toolbar>
 </ion-footer>
