@@ -20,6 +20,7 @@ import { ToastController } from '@ionic/angular/standalone';
 import {Eventos} from "../modelos/Eventos";
 import {EventoService} from "../servicios/eventos";
 import { AlertController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 
 @Component({
@@ -70,6 +71,95 @@ export class Calendario2Component implements OnInit {
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] || null;
+  }
+
+  async pickImage() {
+    const alert = await this.alertController.create({
+      header: 'Seleccionar imagen',
+      message: '¿De dónde deseas obtener la imagen?',
+      buttons: [
+        {
+          text: 'Cámara',
+          handler: async () => {
+            await this.capturePhotoFromCamera();
+          }
+        },
+        {
+          text: 'Archivos',
+          handler: () => {
+            // Disparar el input de archivo
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+            if (fileInput) {
+              fileInput.click();
+            }
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+  async capturePhotoFromCamera() {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera,
+        promptLabelPicture: 'Tomar foto',
+        promptLabelCancel: 'Cancelar'
+      });
+
+      if (image && image.dataUrl) {
+        // Convertir dataUrl a File
+        this.selectedFile = this.dataUrlToFile(image.dataUrl, 'camera_photo.jpg');
+        await this.presentToast('Foto capturada con éxito');
+      }
+    } catch (err: any) {
+      const errorMessage = (err.message || err.toString()).toLowerCase();
+      console.error('Error capturando foto:', err);
+
+      // Si el usuario cancela, no mostrar error
+      if (errorMessage.includes('cancelled') || errorMessage.includes('cancel') || errorMessage.includes('user denied') || errorMessage.includes('user cancelled')) {
+        return;
+      }
+
+      // Fallback en web: si hay error, permitir seleccionar archivos
+      if (errorMessage.includes('pwa') || errorMessage.includes('custom element') || errorMessage.includes('not found') || errorMessage.includes('modal')) {
+        await this.presentToast('Usa la opción de archivos para seleccionar una imagen', 'warning');
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.click();
+        }
+        return;
+      }
+
+      // Si no hay cámara disponible
+      if (errorMessage.includes('camera') || errorMessage.includes('permission') || errorMessage.includes('denied')) {
+        await this.presentToast('Cámara no disponible. Usa la opción de archivos.', 'warning');
+        return;
+      }
+
+      // Otro error
+      await this.presentToast('Error capturando foto. Intenta con archivos.', 'danger');
+    }
+  }
+
+  private dataUrlToFile(dataUrl: string, filename: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
 
   async deleteEvento(id?: number) {

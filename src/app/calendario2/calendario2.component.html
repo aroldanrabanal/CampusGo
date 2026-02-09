@@ -144,7 +144,16 @@
 
           <ion-item>
             <ion-label position="stacked">Imagen (opcional)</ion-label>
-            <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+              <ion-button expand="block" fill="outline" (click)="pickImage()" color="primary">
+                <ion-icon slot="start" name="camera-outline"></ion-icon>
+                Seleccionar imagen
+              </ion-button>
+              <span *ngIf="selectedFile" style="padding-top: 10px; color: #2dd36f;">
+                ✓ {{ selectedFile.name }}
+              </span>
+            </div>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;" />
           </ion-item>
 
           <ion-item>
